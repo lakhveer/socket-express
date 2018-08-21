@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="/jquery/dist/jquery.js"></script>
+        <script src="/socket.io-client/dist/socket.io.js"></script>
+    <script>
+        $(function(){
+            $('#btn').click(function(){
+                var txt = $('#t').val();
+                var socket = io.connect('http://localhost:3000');
+                socket.emit('open', txt); //send
+                $('#t').val('');
+                socket.on('lis', function(res){ // recive
+                    console.log(res);
+                    $('#ul').append(res+'</br>');
+                });
+            });
+            
+        });
+          </script>
+</head>
+<body>
+    <h1>Index</h1>
+    <input type="text" name="" id="t">
+    <button id="btn">Send</button>
+    <br>
+    <span id="ul"></span>
+</body>
+</html>
